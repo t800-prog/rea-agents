@@ -46,6 +46,7 @@ jobs:
       - name: Run the complete configuration
         env:
           MUTATION_CONFIG: ${{ matrix.config }}
+          NODE_OPTIONS: "--max-old-space-size=4096"
         run: |
           node scripts/prepare-reverse-tools-mutation.mjs
           npx --no-install stryker run "${MUTATION_CONFIG}"
@@ -64,4 +65,3 @@ jobs:
             reports/mutation/${{ matrix.suite }}.json
             reports/mutation/${{ matrix.suite }}.html
           if-no-files-found: warn
-          retention-days: 7
